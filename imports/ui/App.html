@@ -1,0 +1,64 @@
+<template name="mainContainer">
+  <div class="container">
+    <header>
+      <h1>📝 Simple Todos</h1>
+      {{> loginButtons}}
+    </header>
+
+    {{#if currentUser}}
+      <div class="tasks-section">
+        <div class="new-task-form">
+          <input type="text" class="new-task-input" placeholder="Add a new task...">
+          <select class="new-task-category">
+            <option value="">Select category</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Urgent">Urgent</option>
+          </select>
+          <button class="add-task-btn">Add Task</button>
+        </div>
+
+        {{#if tasks.count}}
+          <div class="tasks-filter">
+            <button class="filter-btn {{#if filter}}active{{/if}}" data-filter="">All</button>
+            <button class="filter-btn {{#if filter}}active{{/if}}" data-filter="Work">Work</button>
+            <button class="filter-btn {{#if filter}}active{{/if}}" data-filter="Personal">Personal</button>
+            <button class="filter-btn {{#if filter}}active{{/if}}" data-filter="Urgent">Urgent</button>
+            <button class="filter-btn {{#if showHideCompleted}}active{{/if}}" data-filter="completed">Completed</button>
+          </div>
+
+          <ul class="tasks-list" id="tasks-list">
+            {{#each tasks}}
+              {{> task}}
+            {{/each}}
+          </ul>
+
+          <div class="tasks-stats">
+            <p>Total: {{tasks.count}} | Completed: {{completedCount}} | Remaining: {{remainingCount}}</p>
+          </div>
+        {{else}}
+          <div class="no-tasks">
+            <p>No tasks yet. Add one to get started! 🎯</p>
+          </div>
+        {{/if}}
+      </div>
+    {{else}}
+      <div class="login-prompt">
+        <p>Please log in or sign up to manage your tasks.</p>
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="task">
+  <li class="task-item {{#if checked}}checked{{/if}}" data-id="{{_id}}" draggable="true">
+    <div class="task-content">
+      <input type="checkbox" class="task-checkbox" {{#if checked}}checked{{/if}}>
+      <span class="task-text {{#if checked}}completed{{/if}}">{{text}}</span>
+    </div>
+    <div class="task-meta">
+      <span class="task-category category-{{category}}">{{category}}</span>
+    </div>
+    <button class="task-delete">×</button>
+  </li>
+</template>
