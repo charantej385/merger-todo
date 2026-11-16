@@ -5,3 +5,4 @@ Meteor.startup(() => {
   // code to run on server at startup
   console.log('Simple Todos app started!');
 });
+// I want to learn this concept
