@@ -18,3 +18,5 @@ describe("merger_todo", function () {
     });
   }
 });
+new_one("hi", function()){
+this shit i dont know just learning}
